@@ -1,5 +1,5 @@
 package view;
-
+import view.TelaJogo;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -30,22 +30,10 @@ public class TelaMenu extends JFrame {
         painelSuperior.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Adicionar logo
-        try {
-            String caminhoLogo = "img/logo/super-trunfo.jpg";
-            ImageIcon icon = new ImageIcon(caminhoLogo);
-            // Redimensionar imagem se necessário
-            Image img = icon.getImage().getScaledInstance(200, 150, Image.SCALE_SMOOTH);
-            lblLogo = new JLabel(new ImageIcon(img));
-            lblLogo.setHorizontalAlignment(JLabel.CENTER);
-            painelSuperior.add(lblLogo, BorderLayout.CENTER);
-        } catch (Exception e) {
-            // Fallback se a imagem não for encontrada
-            lblTitulo = new JLabel("SUPER TRUNFO");
-            lblTitulo.setFont(new Font("Arial", Font.BOLD, 36));
-            lblTitulo.setForeground(Color.WHITE);
-            lblTitulo.setHorizontalAlignment(JLabel.CENTER);
-            painelSuperior.add(lblTitulo, BorderLayout.CENTER);
-        }
+        ImageIcon icon = ImagemUtil.carregarImagem("/img/logo/super-trunfo.jpg", 200, 150);
+        lblLogo = new JLabel(icon);
+        lblLogo.setHorizontalAlignment(JLabel.CENTER);
+        painelSuperior.add(lblLogo, BorderLayout.CENTER);
 
         // Painel central com descricão
         JPanel painelCentral = new JPanel();
@@ -53,8 +41,8 @@ public class TelaMenu extends JFrame {
         painelCentral.setBackground(new Color(30, 30, 30));
         painelCentral.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JLabel lblDescricao = new JLabel("<html><center>Bem-vindo ao Super Trunfo!<br><br>Desafie a máquina em uma partida<br>de cartas épicas!</center></html>");
-        lblDescricao.setFont(new Font("Arial", Font.PLAIN, 14));
+        JLabel lblDescricao = new JLabel("<html><div style='text-align: center;'>Bem-vindo ao Super Trunfo!<br><br>Desafie a máquina em uma partida<br>de cartas épicas!</div></html>", SwingConstants.CENTER);
+        lblDescricao.setFont(new Font("Arial", Font.PLAIN, 16));
         lblDescricao.setForeground(Color.WHITE);
         lblDescricao.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -112,7 +100,7 @@ public class TelaMenu extends JFrame {
         this.dispose();
 
         // Abrir tela de jogo
-        new TelaJogo();
+        TelaJogo telaJogo = new TelaJogo();
     }
 
     public static void main(String[] args) {
