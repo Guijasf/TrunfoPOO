@@ -1,20 +1,14 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DaoInsercaoCartas {
-    private static final String NOME_BD = "supertrunfo";
-    private static final String URL = "jdbc:mysql://localhost/" + NOME_BD;
-    private static final String USUARIO = "root";
-    private static final String SENHA = "";
-
     public DaoInsercaoCartas() {
         try {
-            Connection conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
+            Connection conexao = ConfiguracaoBD.getConnection();
 
             String contarCartas = "SELECT COUNT(*) FROM cartas";
 
@@ -26,9 +20,9 @@ public class DaoInsercaoCartas {
             int quantidadeCartas = resultado.getInt(1);
 
             if (quantidadeCartas > 0) {
-                System.out.println("Cartas já cadastradas.");
+                System.out.println("✅ Cartas já cadastradas.");
 
-                conexao.close();
+                ConfiguracaoBD.fecharConexao(conexao);
                 return;
             }
 
@@ -72,11 +66,11 @@ public class DaoInsercaoCartas {
 
             operacaoInsert.execute();
 
-            System.out.println("Cartas inseridas com sucesso!");
+            System.out.println("✅ Cartas inseridas com sucesso!");
 
-            conexao.close();
+            ConfiguracaoBD.fecharConexao(conexao);
         } catch (SQLException e) {
-            System.out.println("Erro: " + e.getMessage());
+            System.out.println("❌ Erro: " + e.getMessage());
         }
     }
 }
